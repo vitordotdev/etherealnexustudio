@@ -1,2 +1,0 @@
-# etherealnexustudio
-WebGL Application
