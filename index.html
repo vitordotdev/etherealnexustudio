@@ -3,10 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>Unity Web Player | EndlessRunner</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #222435;
+      display: flex; justify-content: center; align-items: center;
+    }
+    #unity-container {
+      width: 100vw; height: 100vh;
+      display: flex; justify-content: center; align-items: center;
+      background: #222435;
+    }
+    #unity-canvas {
+      /* Tamanho original do build Unity */
+      width: 1280px;
+      height: 720px;
+      max-width: 100vw;
+      max-height: 100vh;
+      /* Suaviza o redimensionamento */
+      image-rendering: auto;
+      /* Ou pixelated se quiser estilo pixel */
+    }
+  </style>
   </head>
   <body>
     <div id="unity-container">
@@ -20,6 +42,33 @@
       <div id="unity-warning"> </div>
     </div>
     <script>
+function resizeCanvas() {
+  const canvas = document.getElementById('unity-canvas');
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+  const aspectRatio = 1280 / 720;
+
+  let newWidth = windowWidth;
+  let newHeight = windowWidth / aspectRatio;
+
+  if (newHeight > windowHeight) {
+    newHeight = windowHeight;
+    newWidth = newHeight * aspectRatio;
+  }
+
+  if (canvas.style.width !== newWidth + 'px' || canvas.style.height !== newHeight + 'px') {
+    canvas.style.width = newWidth + 'px';
+    canvas.style.height = newHeight + 'px';
+  }
+  const container = document.getElementById('unity-container');
+container.style.width = newWidth + 'px';
+container.style.height = newHeight + 'px';
+}
+
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('load', () => {
+  resizeCanvas();
+});
       window.addEventListener("load", function () {
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.register("ServiceWorker.js");
