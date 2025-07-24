@@ -3,9 +3,38 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Unity Web Player | EndlessRunner</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
+	<style>
+		html, body {
+		  margin: 0;
+		  padding: 0;
+		  height: 100%;
+		  overflow: hidden;
+		  background: black;
+		}
+
+		#unity-container {
+		  position: fixed;
+		  width: 100vw;
+		  height: 100vh;
+		  top: 0;
+		  left: 0;
+		  overflow: hidden;
+		  padding-top: env(safe-area-inset-top);
+		  padding-bottom: env(safe-area-inset-bottom);
+		  padding-left: env(safe-area-inset-left);
+		  padding-right: env(safe-area-inset-right);
+		}
+
+		canvas {
+		  width: 100% !important;
+		  height: 100% !important;
+		  display: block;
+		}
+	  </style>
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
