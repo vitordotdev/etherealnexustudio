@@ -130,30 +130,6 @@
         progressBarFull.style.width = 100 * progress + "%";
       }).then((unityInstance) => {
         loadingBar.style.display = "none";
-
-        // Sincronizar filesystem do Unity
-        unityInstance.Module.FS.syncfs(true, function(err) {
-          if (err) {
-            console.error("Erro na sincronização do filesystem:", err);
-          } else {
-            console.log("Filesystem sincronizado, agora pode carregar dados.");
-            // Chama a função LoadData no Unity para carregar PlayerPrefs
-            unityInstance.SendMessage('GController', 'LoadData');
-          }
-        });
-
-        // Expor função para sincronizar filesystem ao salvar
-        mergeInto(LibraryManager.library, {
-          SyncFilesJS: function () {
-            unityInstance.Module.FS.syncfs(false, function(err) {
-              if (err) {
-                console.error("Erro na sincronização do filesystem ao salvar:", err);
-              } else {
-                console.log("Filesystem sincronizado ao salvar.");
-              }
-            });
-          }
-        });
       }).catch((message) => {
         alert(message);
       });
